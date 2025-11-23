@@ -1,8 +1,7 @@
 import styled from "styled-components/native";
 
 export const SaveButton = styled.TouchableOpacity`
-
-  background-color: ${({ theme }) => (theme.COLORS.ORANGE_100)};
+  background-color: ${({ theme }) => theme.COLORS.ORANGE_100};
   border-radius: 10px;
   height: 50px;
 

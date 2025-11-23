@@ -1,11 +1,9 @@
 import { TextInput } from "./styles";
 
 type Props = {
-  placeholder: string
-}
+  placeholder: string;
+};
 
-export function InputForm({ placeholder }: Props){
-  return(
-    <TextInput placeholder={placeholder}/>
-  )
+export function InputForm({ placeholder }: Props) {
+  return <TextInput placeholder={placeholder} />;
 }

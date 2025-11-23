@@ -1,10 +1,16 @@
-import { Container, Logo } from "./styles";
-import logoImg from '../../assets/Confraria.png';
+import { ButtonNavigation, Container, Logo } from "./styles";
+import logoImg from "../../assets/Confraria.png";
 
-export function Header(){
-  return(
+type Props = {
+  onClickLogo?: () => void;
+};
+
+export function Header({ onClickLogo }: Props) {
+  return (
     <Container>
-      <Logo source={logoImg} />
+      <ButtonNavigation onPress={onClickLogo}>
+        <Logo source={logoImg} />
+      </ButtonNavigation>
     </Container>
-  )
+  );
 }

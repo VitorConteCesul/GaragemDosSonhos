@@ -5,16 +5,14 @@ export const Container = styled.View`
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND_DEFAULT};
 `;
 
-export const ContentForm = styled.View`
+export const ContentList = styled.View`
   padding: 0px 20px 0px 20px;
-
-  gap: 15px;
 `;
 
 export const Title = styled.Text`
-  margin-top: 35px;
-  margin-bottom: 35px;
   font-size: 32px;
   text-align: center;
-  font-weight: bo;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 30px;
 `;
