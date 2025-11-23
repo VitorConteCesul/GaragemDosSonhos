@@ -1,9 +1,9 @@
 import styled from "styled-components/native";
 
 export const TextInput = styled.TextInput`
-  background-color: #eef0edff;
+  background-color: ${({ theme }) => (theme.COLORS.WHITE_100)};
 
-  height: 40px;
+  height: 50px;
   border-radius: 10px;
   border-width: 1px;
   border-color: #000000ff;

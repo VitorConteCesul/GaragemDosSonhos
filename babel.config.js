@@ -12,7 +12,7 @@ module.exports = function(api) {
             '@routes': './src/routes',
             '@screens': './src/screens',
             '@theme': './src/theme',
-            '@assets': '.src/assets'
+            '@assets': './src/assets'
           }
         }
       ]

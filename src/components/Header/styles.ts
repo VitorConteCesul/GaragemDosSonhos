@@ -1,11 +1,14 @@
 import styled from "styled-components/native";
 
 export const Container = styled.View`
-  height: 180px;
-  background-color: #f08f41ff;
+  height: 210px;
+  background-color: ${({ theme }) => (theme.COLORS.WHITE_100)};
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Logo = styled.Image`
-  height: 30px;
-  width: 30px;
+  margin-top: 30px;
+  height: 110px;
+  width: 110px;
 `;
