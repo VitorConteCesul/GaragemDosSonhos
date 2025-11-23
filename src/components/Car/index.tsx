@@ -3,9 +3,8 @@ import {
   ButtonText,
   Container,
   Content,
-  ContentLeft,
-  ContentRight,
-  InfoCar,
+  ContentText,
+  InfoCar
 } from "./styles";
 
 type Props = {
@@ -13,25 +12,25 @@ type Props = {
   marca: string;
   modelo: string;
   ano: string;
-  onDelCar: () => void;
+  onDelCar: ( ) => void;
 };
 
 export function Car({ proprietario, marca, modelo, ano, onDelCar }: Props) {
   return (
     <Container>
       <Content>
-        <ContentLeft>
+        <ContentText>
           <InfoCar>{proprietario}</InfoCar>
           <InfoCar>{marca}</InfoCar>
-        </ContentLeft>
+        </ContentText>
 
-        <ContentRight>
+        <ContentText>
           <InfoCar>{modelo}</InfoCar>
           <InfoCar>{ano}</InfoCar>
-        </ContentRight>
+        </ContentText>
       </Content>
       <ButtonDelete onPress={onDelCar}>
-        <ButtonText>X</ButtonText>
+        <ButtonText name="delete-outline"/>
       </ButtonDelete>
     </Container>
   );
