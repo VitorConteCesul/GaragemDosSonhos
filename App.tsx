@@ -1,10 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { CarRegistry } from "@screens/CarRegistry";
 
 export default function App() {
   return (
     <>
-      
+      <CarRegistry />
     </>
   );
 }
