@@ -1,35 +1,42 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import React from "react";
+import { Controller, useForm } from "react-hook-form";
 
 import { ButtonForm } from "@components/ButtonForm";
 import { Header } from "@components/Header";
 import { InputForm } from "@components/InputForm";
-import { useNavigation } from "@react-navigation/native";
+import { TextError } from "@components/TextError";
 import { Container, ContentForm, Title } from "./styles";
+
+interface FormData {
+  proprietario: string;
+  marca: string;
+  modelo: string;
+  ano: string;
+}
 
 export function CarRegistry() {
   const navigation = useNavigation();
 
-  const [proprietario, setProprietario] = useState<string>("");
-  const [marca, setMarca] = useState<string>("");
-  const [modelo, setModelo] = useState<string>("");
-  const [ano, setAno] = useState<string>("");
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormData>();
 
   function handleListCars() {
     navigation.navigate("listCars");
   }
 
-  async function handleSaveCar() {
-    if (!proprietario || !marca || !modelo || !ano) {
-      return;
-    }
+  async function handleSaveCar(form: FormData) {
     const newCar = {
       id: String(new Date().getTime()),
-      proprietario,
-      marca,
-      modelo,
-      ano,
-      registrationDate: new Date().toISOString(),
+      proprietario: form.proprietario,
+      marca: form.marca,
+      modelo: form.modelo,
+      ano: form.ano,
     };
 
     try {
@@ -40,10 +47,7 @@ export function CarRegistry() {
 
       await AsyncStorage.setItem("cars", JSON.stringify(updatedCars));
 
-      setProprietario("");
-      setMarca("");
-      setModelo("");
-      setAno("");
+      reset();
 
       handleListCars();
     } catch (error) {
@@ -56,19 +60,80 @@ export function CarRegistry() {
       <Header onClickLogo={handleListCars} />
       <Title>Registre seu Carro Antigo</Title>
       <ContentForm>
-        <InputForm
-          placeholder="Proprietário"
-          value={proprietario}
-          onChangeText={setProprietario}
+        <Controller
+          control={control}
+          name="proprietario"
+          rules={{ required: "O Proprietário é obrigatório" }}
+          render={({ field: { onChange, value } }) => (
+            <InputForm
+              placeholder="Proprietário"
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
         />
-        <InputForm placeholder="Marca" value={marca} onChangeText={setMarca} />
-        <InputForm
-          placeholder="Modelo"
-          value={modelo}
-          onChangeText={setModelo}
+        {errors.proprietario && (
+          <TextError text={errors.proprietario.message} />
+        )}
+
+        <Controller
+          control={control}
+          name="marca"
+          rules={{ required: "A Marca é obrigatória" }}
+          render={({ field: { onChange, value } }) => (
+            <InputForm
+              placeholder="Marca"
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
         />
-        <InputForm placeholder="Ano" value={ano} onChangeText={setAno} />
-        <ButtonForm nameButton="Salvar Veículo" onPress={handleSaveCar} />
+        {errors.marca && (
+          <TextError text={errors.marca.message} />
+        )}
+
+        <Controller
+          control={control}
+          name="modelo"
+          rules={{ required: "O Modelo é obrigatório" }}
+          render={({ field: { onChange, value } }) => (
+            <InputForm
+              placeholder="Modelo"
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+        />
+        {errors.modelo && (
+          <TextError text={errors.modelo.message} />
+        )}
+
+        <Controller
+          control={control}
+          name="ano"
+          rules={{
+            required: "O Ano é obrigatório",
+            minLength: {
+              value: 4,
+              message: "O ano deve ter 4 dígitos",
+            },
+          }}
+          render={({ field: { onChange, value } }) => (
+            <InputForm
+              placeholder="Ano"
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+        />
+        {errors.ano && (
+          <TextError text={errors.ano.message} />
+        )}
+
+        <ButtonForm
+          nameButton="Salvar Veículo"
+          onPress={handleSubmit(handleSaveCar)}
+        />
       </ContentForm>
     </Container>
   );
